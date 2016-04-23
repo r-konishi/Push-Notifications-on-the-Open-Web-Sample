@@ -23,7 +23,7 @@ window.addEventListener('load', function() {
     // Service Worker に対応しているブラウザ
     navigator.serviceWorker
       // Service Worker の js を登録する
-      .register('./service-worker.js')
+      .register('/service-worker.js')
       // Service Worker が無事登録されたら
       .then(function(result){
         console.log(result);
