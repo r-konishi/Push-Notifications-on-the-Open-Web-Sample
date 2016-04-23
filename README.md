@@ -1,1 +1,1 @@
-# Push-Notifications-on-the-Open-Web-Sample
+# ブラウザでPush通知 サンプル
