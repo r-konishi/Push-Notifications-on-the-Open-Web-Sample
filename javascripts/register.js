@@ -115,13 +115,50 @@ var subscribe = function() {
         } else {
           console.error('Push通知が登録されていないよ！', error);
           pushButton.disabled = false;
-          pushButton.textContent = 'Push通知を有効を有効にする';
+          pushButton.textContent = 'Push通知を有効にする';
         }
       });
   });
 };
 
+/**
+ * Push通知を無効にするようにブラウザに求める
+ */
+var unsubscribe = function() {
+  // ID が push-button のエレメントを取得
+  var pushButton = document.getElementById('push-button');
+  pushButton.disabled = true;
 
+  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+    serviceWorkerRegistration.pushManager.getSubscription()
+      .then(function(pushSubscription) {
+        if(!pushSubscription) {
+          isPushEnabled = false;
+          pushButton.disabled = false;
+          pushButton.textContent = 'Push通知を有効にする';
+          return;
+        }
+
+        var subscriptionId = pushSubscription.subscriptionId;
+
+        // TODO: 対象のサブスクリプションIDをサーバから消す
+        sendUnsbscriptionToServer(subscriptionId);
+
+        pushSubscription.unsubscribe().then(function(successful) {
+          pushButton.disabled = false;
+          pushButton.textContent = 'Push通知を無効にする';
+          isPushEnabled = false;
+        }).catch(function(error) {
+          console.log('Push通知無効処理エラー', error);
+          pushButton.disabled = false;
+          pushButton.textContent = 'Push通知を有効にする';
+        });
+      })
+      .catch(function(error) {
+        console.error('Push通知の無効処理にエラーが発生しました。', error);
+      });
+  });
+};
 
 
 
