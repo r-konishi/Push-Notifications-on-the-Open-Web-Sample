@@ -165,7 +165,7 @@ var unsubscribe = function() {
  * サーバに Subscription ID を登録するダミー関数
  **/
 var sendSubscriptionToServer = function(subscriptionId) {
-  console.log('サーバに Subscription ID を登録しました。 Subscription ID: ' subscriptionId);
+  console.log('サーバに Subscription ID を登録しました。 Subscription ID: ' + subscriptionId);
   return true;
 };
 
