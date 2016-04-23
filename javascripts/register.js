@@ -90,6 +90,37 @@ var initialiseState = function() {
   });
 };
 
+/**
+ * push通知許可をブラウザに求める
+ */
+var subscribe = function() {
+  // ID が push-button のエレメントを取得
+  var pushButton = document.getElementById('push-button');
+  pushButton.disabled = true;
+
+  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+    serviceWorkerRegistration.pushManager.subscribe()
+      .then(function(subscription) {
+        isPushEnabled = true;
+        pushButton.textContent = 'Push通知を無効にする';
+        pushButton.disabled = false;
+
+        // TODO: サブスクリプションID をサーバに保存する処理
+        return sendSubscriptionToServer(subscription);
+      })
+      .catch(function(error) {
+        if(Notification.permission === 'denied') {
+          console.warn('通知するための権限が与えられていないよ！');
+          pushButton.disabled = true;
+        } else {
+          console.error('Push通知が登録されていないよ！', error);
+          pushButton.disabled = false;
+          pushButton.textContent = 'Push通知を有効を有効にする';
+        }
+      });
+  });
+};
+
 
 
 
