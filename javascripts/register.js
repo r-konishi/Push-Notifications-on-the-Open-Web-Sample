@@ -45,7 +45,7 @@ window.addEventListener('load', function() {
  */
 var initialiseState = function() {
   // Service Worker で通知に対応しているか
-  if(!('showNotification' in serviceWorkerRegistration.prototype)) {
+  if(!('showNotification' in ServiceWorkerRegistration.prototype)) {
     console.warn('Service Worker からの通知に対応していなかった！残念！');
     return;
   }
@@ -100,7 +100,7 @@ var subscribe = function() {
   pushButton.disabled = true;
 
   navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-    serviceWorkerRegistration.pushManager.subscribe()
+    serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true})
       .then(function(subscription) {
         isPushEnabled = true;
         pushButton.textContent = 'Push通知を無効にする';
@@ -143,7 +143,7 @@ var unsubscribe = function() {
         var subscriptionId = pushSubscription.subscriptionId;
 
         // TODO: 対象のサブスクリプションIDをサーバから消す
-        sendUnsbscriptionToServer(subscriptionId);
+        sendUnsbscriptionToServer(pushSubscription);
 
         pushSubscription.unsubscribe().then(function(successful) {
           pushButton.disabled = false;
@@ -164,16 +164,18 @@ var unsubscribe = function() {
 /**
  * サーバに Subscription ID を登録するダミー関数
  **/
-var sendSubscriptionToServer = function(subscriptionId) {
-  console.log('サーバに Subscription ID を登録しました。 Subscription ID: ' + subscriptionId);
+var sendSubscriptionToServer = function(subscription) {
+  console.log(subscription);
+  console.log('サーバに Subscription ID を登録しました。');
   return true;
 };
 
 /**
  * サーバから対象の Subscription ID を削除するダミー関数
  **/
-var sendUnsbscriptionToServer = function(subscriptionId) {
-  console.log('サーバから Subscription ID (' + subscriptionId + ') を削除しました。');
+var sendUnsbscriptionToServer = function(subscription) {
+  console.log(subscription);
+  console.log('サーバから Subscription ID を削除しました。');
   return true;
 };
 
