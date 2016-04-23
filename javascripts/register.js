@@ -10,11 +10,11 @@ window.addEventListener('load', function() {
     if(isPushEnabled) {
       // push通知を解除する
       console.log('unsubscribe');
-      isPushEnabled = false;
+      unsubscribe();
     } else {
       // push通知を登録する
       console.log('subscribe');
-      isPushEnabled = true;
+      subscribe();
     }
   });
 
@@ -28,6 +28,7 @@ window.addEventListener('load', function() {
       .then(function(result){
         console.log(result);
         console.log('Service Worker の登録が完了したよ！');
+        initialiseState();
       })
       .catch(function(error) {
         console.log(error);
@@ -160,9 +161,21 @@ var unsubscribe = function() {
   });
 };
 
+/**
+ * サーバに Subscription ID を登録するダミー関数
+ **/
+var sendSubscriptionToServer = function(subscriptionId) {
+  console.log('サーバに Subscription ID を登録しました。 Subscription ID: ' subscriptionId);
+  return true;
+};
 
-
-
+/**
+ * サーバから対象の Subscription ID を削除するダミー関数
+ **/
+var sendUnsbscriptionToServer = function(subscriptionId) {
+  console.log('サーバから Subscription ID (' + subscriptionId + ') を削除しました。');
+  return true;
+};
 
 
 
