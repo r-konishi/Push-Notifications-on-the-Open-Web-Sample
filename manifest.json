@@ -1,0 +1,12 @@
+{
+  "name": "Push Notification onthe Open Web Sample",
+  "short_name": "Push Sample",
+  "icons": [{
+    "src": "images/icon-180x180.png",
+    "sizes": "180x180",
+    "type": "image/png"
+  }],
+  "start_url": "/index.html",
+  "display": "standalone",  
+  "gcm_sender_id": "プロジェクトIDをここに記載する"
+}
