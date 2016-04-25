@@ -1,5 +1,9 @@
 # ブラウザでPush通知 サンプル
 
+### curl で Push 通知を行う方法  
+```
+curl --header "Authorization: key=GCM_API_Key" --header Content-Type:"application/json" https://android.googleapis.com/gcm/send -d "{\"registration_ids\":[\"REGISTRATION_ID\"]}"
+```
 
 ### Chrome で Service Worker 一覧表示  
 ```
