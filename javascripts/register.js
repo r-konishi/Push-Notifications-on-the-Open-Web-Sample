@@ -147,7 +147,7 @@ var unsubscribe = function() {
 
         pushSubscription.unsubscribe().then(function(successful) {
           pushButton.disabled = false;
-          pushButton.textContent = 'Push通知を無効にする';
+          pushButton.textContent = 'Push通知を有効にする';
           isPushEnabled = false;
         }).catch(function(error) {
           console.log('Push通知無効処理エラー', error);
